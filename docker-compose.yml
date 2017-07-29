@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  node:
+    build: .
+    command: python -m flask run --host=0.0.0.0
+    volumes:
+      - ./quack:/source
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_APP: /source/server.py
+      FLASK_DEBUG: 1
