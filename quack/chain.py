@@ -5,6 +5,18 @@ class Chain(list):
     def __init__(self):
         self.append(Block.genesis())
 
+    def get_credit(self, address):
+        credit = 0
+
+        for block in self:
+            for tx in block.data['transactions']:
+                if tx['from'] == address:
+                    credit -= tx['amount']
+                if tx['to'] == address:
+                    credit += tx['amount']
+
+        return credit
+
     def proove(self, proof, transactions):
         last_block = self[-1]
         new_block = last_block.next({
